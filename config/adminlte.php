@@ -221,7 +221,7 @@ return [
      [
             'text'        => 'Planos',
             'url'         => 'admin/plans',
-            'icon'        => 'far fa-fw fa-user',
+            'icon'        => 'fas fa-list-alt',
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
