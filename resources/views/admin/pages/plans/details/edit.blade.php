@@ -14,7 +14,7 @@
 
     </ol>
 
-    <h1>Adicionar novo detalhes ao {{ $detail->name }} </a></h1>
+    <h1>Editar o detalhe {{ $detail->name }} </a></h1>
 @stop
 
 @section('content')

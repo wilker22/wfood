@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreUpdateDetailPlan;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdatePlan;
 use App\Models\DetailPlan;
 use App\Models\Plan;
 use Illuminate\Http\Request;
