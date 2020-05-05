@@ -218,10 +218,17 @@ return [
             'url'  => 'admin/blog',
             'can'  => 'manage-blog',
         ],
-     [
+        [
             'text'        => 'Planos',
             'url'         => 'admin/plans',
             'icon'        => 'fas fa-list-alt',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        [
+            'text'        => 'Perfis',
+            'url'         => 'admin/profiles',
+            'icon'        => 'fas fa-address-card',
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
