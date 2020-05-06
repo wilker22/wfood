@@ -232,6 +232,13 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+        [
+            'text'        => 'Permissões',
+            'url'         => 'admin/permissions',
+            'icon'        => 'fas fa-lock',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
