@@ -28,4 +28,34 @@ class PermissionProfileController extends Controller
 
         return view('admin.pages.profiles.permissions.permissions', compact('permissions', 'profile'));
     }
+
+    public function permissionsAvailable(Request $request, $idProfile)
+    {
+        if(!$profile = $this->profile->find($idProfile)){
+            return redirect()->back();
+        }
+        $filters = $request->except('_token');
+        $permissions = $this->permission->paginate();
+        return view('admin.pages.profiles.permissions.available', compact('profile', 'permissions', 'filters'));
+    }
+
+    public function attachPermissionsProfile(Request $request, $idProfile)
+    {
+
+        //dd($request->all());
+        if(!$profile = $this->profile->find($idProfile)){
+            return redirect()->back();
+        }
+
+        if(!$request->permissions || count($request->permissions) == 0){
+            return redirect()
+                    ->back()
+                    ->with('info', 'É necessário escolher ao menos uma PERMISSÃO');
+        }
+
+       $profile->permissions()->attach($request->permissions) ;//array criado com as permissões selecionadas no form
+
+       return redirect()->route('profiles.permissions', $profile->id);
+
+    }
 }
