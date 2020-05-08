@@ -2,21 +2,24 @@
 
 @extends('adminlte::page')
 
-@section('title', 'Perfis')
+@section('title', "Perfis disponíveis para o Plano: {$plan->name}")
 
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('profiles.index') }}">Perfis</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('plans.index') }}">Planos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('plans.profiles', $plan->id) }}">Perfis</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('plans.profiles.available', $plan->id) }}" class="active">Disponíveis</a></li>
     </ol>
 
-    <h1>Perfis <a href="{{ route('profiles.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus-square"></i></a></h1>
+    <h1>Perfis Disponíveis para o Plano: <strong> {{$plan->name}} </strong>
+
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-                <form action="{{ route('profiles.search') }}" class="form form-inline" method="POST">
+                <form action="{{ route('plans.profiles.available', $plan->id) }}" class="form form-inline" method="POST">
                     @csrf
                     <input type="text" name="filter" placeholder="Filtro" class="form-control" value="{{  $filters['filter'] ?? ''}}">
                     <button type="submit" class="btn btn-dark"><i class="fas fa-filter"></i> Filtrar</button>
@@ -25,25 +28,37 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr>
+                            <th width="50px"> # </th>
                             <th>Nome</th>
-                            <th style="width: 300px;">Ações</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach($profiles as $profile)
+                        <form action="{{ route('plans.profiles.attach', $plan->id) }}" method="post" class="form-control">
+                            @csrf
+
+                            @foreach($profiles as $profile)
                             <tr>
                                 <td>
-                                    {{ $profile->name }}
+                                    <input type="checkbox" class="form-check-input" name="profiles[]" id="profiles" value="{{ $profile->id}}">
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-info">Editar</a>
-                                    <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-warning">Ver</a>
-                                    <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-warning"><i class="fas fa-lock"></i></a>
-                                    <a href="{{ route('profiles.plans', $profile->id) }}" class="btn btn-info"><i class="fas fa-list-alt"></i></a>
+                                    {{ $profile->name }}
                                 </td>
                             </tr>
                         @endforeach
+
+                        <tr>
+                            <td colspan="500">
+                                @include('admin.includes.alerts')
+                                <button type="submit" class="btn btn-success">Vincular</button>
+                            </td>
+                        </tr>
+
+
+
+                        </form>
                     </tbody>
                 </table>
           </div>

@@ -42,7 +42,6 @@ class PermissionProfileController extends Controller
     public function attachPermissionsProfile(Request $request, $idProfile)
     {
 
-        //dd($request->all());
         if(!$profile = $this->profile->find($idProfile)){
             return redirect()->back();
         }
