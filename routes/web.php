@@ -83,9 +83,7 @@ Route::prefix('admin')
 });
 
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 /**
  * Auth routes
