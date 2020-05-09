@@ -239,6 +239,13 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+        [
+            'text'        => 'Usuários',
+            'url'         => 'admin/users',
+            'icon'        => 'fas fa-users',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
