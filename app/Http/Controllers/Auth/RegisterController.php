@@ -4,11 +4,12 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
+use App\Services\TenantService;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+
 
 class RegisterController extends Controller
 {
@@ -72,22 +73,10 @@ class RegisterController extends Controller
             return redirect()->route('site.home');
         }
 
-        $tenant = $plan->tenants()->create([
-            'cnpj' => $data['cnpj'],
-            'name' => $data['name'],
-            'url' => Str::kebab($data['empresa']),
-            'email' => $data['email'],
+        $tenantService = app(TenantService::class);
+        $user = $tenantService->make($plan, $data);
 
-            'subscription' => now(),
-            'expires_at' => now()->addDays(7),
-         ]);
+        return $user;
 
-        $users = $tenant->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-
-        return $users;
     }
 }
