@@ -246,6 +246,13 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+        [
+            'text'        => 'Categorias',
+            'url'         => 'admin/categories',
+            'icon'        => 'fas fa-layer-group',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
