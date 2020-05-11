@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreUpdateCategory;
 use App\Models\Category;
+use Illuminate\Cache\RedisTaggedCache;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -62,7 +63,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        if(!$category = $this->repository->find($id)){
+            return redirect()->back();
+        };
+
+        return view('admin.pages.categories.show', compact('category'));
     }
 
     /**
@@ -73,7 +78,11 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        //
+        if(!$category = $this->repository->find($id)){
+            return redirect()->back();
+        }
+
+        return view('admin.pages.categories.edit', compact('category'));
     }
 
     /**
@@ -85,7 +94,13 @@ class CategoryController extends Controller
      */
     public function update(StoreUpdateCategory $request, $id)
     {
-        //
+        if(!$category = $this->repository->find($id)){
+            return redirect()->back();
+        };
+
+        $category->update($request->all());
+
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -96,6 +111,29 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //dd($this->repository->find($id));
+        if(!$category = $this->repository->find($id)){
+            return redirect()->back();
+        };
+
+        $category->delete();
+        return redirect()->route('categories.index');
+    }
+
+    public function search(Request $request)
+    {
+        $filters = $request->only('filter');//filter é nome do campo de pesquisa na index
+
+        $profiles = $this->repository
+                    ->where(function($query) use ($request){
+                        if($request->filter){
+                            $query->orwhere('description', 'LIKE', "%{$request->filter}%");
+                            $query->orwhere('name','LIKE', "%{$request->filter}%");
+                        }
+                    })
+                    ->lateste()
+                    ->paginate();
+
+        return view('admin.pages.categories.index', compact('categories','filters'));
     }
 }
