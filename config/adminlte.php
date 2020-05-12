@@ -253,6 +253,13 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+        [
+            'text'        => 'Produtos',
+            'url'         => 'admin/products',
+            'icon'        => 'fas fa-hamburger',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
