@@ -125,13 +125,14 @@ class CategoryController extends Controller
         $filters = $request->only('filter');//filter é nome do campo de pesquisa na index
 
         $profiles = $this->repository
+
                     ->where(function($query) use ($request){
                         if($request->filter){
                             $query->orwhere('description', 'LIKE', "%{$request->filter}%");
                             $query->orwhere('name','LIKE', "%{$request->filter}%");
                         }
                     })
-                    ->lateste()
+                    ->latest()
                     ->paginate();
 
         return view('admin.pages.categories.index', compact('categories','filters'));

@@ -42,7 +42,7 @@
 
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info">Editar</a>
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning">Ver</a>
-
+                                    <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning" title="Categorias"><i class="fa fa-layer-group"></i></a>
                                 </td>
                             </tr>
                         @endforeach
