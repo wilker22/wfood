@@ -260,6 +260,13 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+        [
+            'text'        => 'Mesas',
+            'url'         => 'admin/tables',
+            'icon'        => 'fas fa-tablet',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
