@@ -9,9 +9,9 @@ trait UserACLTrait
     {
         $tenant = $this->tenant()->first();
         $plan = $tenant->plan;
-
+        $profiles = $plan->profiles;
         $permissions = [];
-        foreach($plan->profiles as $profile){
+        foreach($this->profiles as $profile){
             foreach($profile->permissions as $permission){
                 array_push($permissions, $permission->name);
             }
