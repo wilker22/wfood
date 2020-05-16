@@ -28,7 +28,7 @@ class TenantObserver
      */
     public function updating(Tenant $tenant)
     {
-        $this->url = Str::kebab($this->name);
+        $this->url = Str::kebab($tenant->name);
     }
 
 

@@ -208,15 +208,14 @@ return [
     */
 
     'menu' => [
+
         [
-            'text' => 'search',
-            'search' => true,
-            'topnav' => true,
-        ],
-        [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
+            'text'        => 'Empresas',
+            'url'         => 'admin/tenants',
+            'icon'        => 'fas fa-building',
+          //  'can'         => 'tenants',
+          //  'label'       => 4,
+            //'label_color' => 'success',
         ],
         [
             'text'        => 'Planos',
