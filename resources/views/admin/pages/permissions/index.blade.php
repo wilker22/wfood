@@ -1,5 +1,3 @@
-{{-- resources/views/admin/dashboard.blade.php --}}
-
 @extends('adminlte::page')
 
 @section('title', 'Permissões')
@@ -7,54 +5,51 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('permissions.index') }}">Permissões</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('permissions.index') }}" class="active">Permissões</a></li>
     </ol>
 
-    <h1>Perfis <a href="{{ route('permissions.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus-square"></i></a></h1>
+    <h1>Permissões <a href="{{ route('permissions.create') }}" class="btn btn-dark">ADD</a></h1>
 @stop
 
 @section('content')
     <div class="card">
         <div class="card-header">
-                <form action="{{ route('permissions.search') }}" class="form form-inline" method="POST">
-                    @csrf
-                    <input type="text" name="filter" placeholder="Filtro" class="form-control" value="{{  $filters['filter'] ?? ''}}">
-                    <button type="submit" class="btn btn-dark"><i class="fas fa-filter"></i> Filtrar</button>
-                </form>
-            <div class="card-body">
-                <table class="table table-condensed">
-                    <thead>
+            <form action="{{ route('permissions.search') }}" method="POST" class="form form-inline">
+                @csrf
+                <input type="text" name="filter" placeholder="Filtro" class="form-control" value="{{ $filters['filter'] ?? '' }}">
+                <button type="submit" class="btn btn-dark">Filtrar</button>
+            </form>
+        </div>
+        <div class="card-body">
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th width="250">Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach ($permissions as $permission)
                         <tr>
-                            <th>Nome</th>
-                            <th style="width: 300px;">Ações</th>
+                            <td>
+                                {{ $permission->name }}
+                            </td>
+                            <td style="width=10px;">
+                                <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info">Edit</a>
+                                <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning">VER</a>
+                                <a href="{{ route('permissions.profiles', $permission->id) }}" class="btn btn-info"><i class="fas fa-address-book"></i></a>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody>
-                        @foreach($permissions as $permission)
-                            <tr>
-                                <td>
-                                    {{ $permission->name }}
-                                </td>
-
-                                <td>
-                                    {{--  <a href="{{ route('details.profile.index', $profile->url) }}" class="btn btn-info">Detalhes</a>  --}}
-                                    <a href="{{ route('permissions.edit', $permission->id) }}" class="btn btn-info">Editar</a>
-                                    <a href="{{ route('permissions.show', $permission->id) }}" class="btn btn-warning">Ver</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-          </div>
-          <div class="card-footer">
+                    @endforeach
+                </tbody>
+            </table>
+        </div>
+        <div class="card-footer">
             @if (isset($filters))
                 {!! $permissions->appends($filters)->links() !!}
             @else
                 {!! $permissions->links() !!}
             @endif
-
-          </div>
-
         </div>
     </div>
 @stop

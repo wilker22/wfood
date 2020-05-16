@@ -35,11 +35,11 @@
                         @foreach($permissions as $permission)
                             <tr>
                                 <td>
-                                    {{ $permission->name }}
+                                         {{ $permission->name }}
                                 </td>
 
                                 <td>
-                                    <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-info">Editar</a>
+                                    <a href="{{ route('profiles.permission.detach', [$profile->id, $permission->id]) }}" class="btn btn-danger">DESVINCULAR</a>
 
                                 </td>
                             </tr>
