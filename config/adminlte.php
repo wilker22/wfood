@@ -234,6 +234,14 @@ return [
             //'label_color' => 'success',
         ],
         [
+            'text'        => 'Cargos',
+            'url'         => 'admin/roles',
+            'icon'        => 'fas fa-user-tag',
+            //'can'         => 'roles',
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
+        [
             'text'        => 'Permissões',
             'url'         => 'admin/permissions',
             'icon'        => 'fas fa-lock',
@@ -273,6 +281,7 @@ return [
           //  'label'       => 4,
             //'label_color' => 'success',
         ],
+
       /*     ['header' => 'account_settings'],
         [
             'text' => 'profile',
