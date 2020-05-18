@@ -17,6 +17,7 @@ class RoleController extends Controller
 
         $this->middleware(['can:roles']);
 
+
     }
 
     public function index()

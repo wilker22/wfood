@@ -2,17 +2,34 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Tenant;
 
 trait UserACLTrait
 {
-    public function permissions()
+    public function permissions(): array
     {
-        $tenant = $this->tenant()->first();
-        $plan = $tenant->plan;
-        $profiles = $plan->profiles;
+        $permissionsPlan = $this->permissionsPlan();
+        $permissionsRole = $this->permissionsRole();
+
         $permissions = [];
-        foreach($this->profiles as $profile){
-            foreach($profile->permissions as $permission){
+        foreach ($permissionsRole as $permission) {
+            if (in_array($permission, $permissionsPlan))
+                array_push($permissions, $permission);
+        }
+
+        return $permissions;
+    }
+
+    public function permissionsPlan(): array
+    {
+        // $tenant = $this->tenant;
+        // $plan = $tenant->plan;
+        $tenant = Tenant::with('plan.profiles.permissions')->where('id', $this->tenant_id)->first();
+        $plan = $tenant->plan;
+
+        $permissions = [];
+        foreach ($plan->profiles as $profile) {
+            foreach ($profile->permissions as $permission) {
                 array_push($permissions, $permission->name);
             }
         }
@@ -20,7 +37,21 @@ trait UserACLTrait
         return $permissions;
     }
 
-    public function hasPermission(String $permissionName)
+    public function permissionsRole(): array
+    {
+        $roles = $this->roles()->with('permissions')->get();
+
+        $permissions = [];
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
+        }
+
+        return $permissions;
+    }
+
+    public function hasPermission(string $permissionName): bool
     {
         return in_array($permissionName, $this->permissions());
     }
