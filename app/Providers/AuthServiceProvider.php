@@ -30,19 +30,18 @@ class AuthServiceProvider extends ServiceProvider
 
         $permissions = Permission::all();
 
-        foreach($permissions as $permission){
-
-            Gate::define($permission->name, function(User $user) use ($permission){
+        foreach ($permissions as $permission) {
+            Gate::define($permission->name, function(User $user) use ($permission) {
                 return $user->hasPermission($permission->name);
             });
         }
 
-        Gate::define('owner', function(User $user, $object){
+        Gate::define('owner', function(User $user, $object) {
             return $user->id === $object->user_id;
         });
 
-        Gate::before(function (User $user){
-            if($user->isAdmin()){
+        Gate::before(function (User $user) {
+            if ($user->isAdmin()) {
                 return true;
             }
         });

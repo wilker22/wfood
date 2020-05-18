@@ -5,6 +5,6 @@ return [
         'wilker@gmail.com',
         'admin@gmail.com',
         'user@gmail.com',
-        //'bruce@gmail.com',
+        'bruce@gmail.com',
     ],
 ];
