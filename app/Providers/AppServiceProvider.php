@@ -14,6 +14,8 @@ use App\Observers\{
     ProductObserver,
     TenantObserver
 };
+use App\Repositories\Contracts\TenantRepositoryInterface;
+use App\Repositories\TenantRepository;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 
