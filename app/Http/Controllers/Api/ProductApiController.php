@@ -23,4 +23,13 @@ class ProductApiController extends Controller
 
         return ProductResource::collection($products);
     }
+
+    public function show(TenantFormRequest $request, $flag)
+    {
+        if(!$product = $this->productService->getProductByFlag($flag)){
+            return response()->json(['message' => 'Product not found', 404]);
+        }
+
+        return new ProductResource($product);
+    }
 }

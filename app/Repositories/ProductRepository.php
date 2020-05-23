@@ -27,4 +27,11 @@ class ProductRepository implements ProductRepositoryInterface
                     })
                     ->get();
     }
+
+    public function getProductByFlag(string $flag)
+    {
+        return DB::table('$this->table')
+                ->where('flag', $flag)
+                ->first();
+    }
 }
