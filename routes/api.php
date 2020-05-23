@@ -27,6 +27,9 @@ Route::get('/categories', 'Api\CategoryApiController@categoriesByTenant');
 Route::get('/tables/{identify}', 'Api\TableApiController@show');
 Route::get('/tables', 'Api\TableApiController@tablesByTenant');
 
+<<<<<<< HEAD
 Route::get('/products', 'Api\ProductApiController@productsByTenant');
 
+=======
+>>>>>>> dad99c20418a46e5341affe3d2806e68109005c6
 
