@@ -18,6 +18,17 @@
 //     return $request->user();
 // });
 
+Route::post('/sanctum/token', 'Api\Auth\AuthClientController@auth');
+
+Route::group([
+    'middleware' => ['auth:sanctum']
+], function() {
+    Route::get('/auth/me', 'Api\Auth\AuthClientController@me');
+    Route::post('/auth/logout', 'Api\Auth\AuthClientController@logout');
+
+});
+
+
 Route::group([
     'prefix' => 'v1',
     'namespace' => 'Api'
@@ -34,6 +45,10 @@ Route::group([
 
     Route::get('/products/{flag}', 'Api\ProductApiController@show');
     Route::get('/products', 'Api\ProductApiController@productsByTenant');
+
+    Route::post('/client', 'Auth\RegisterController@store');
+
+
 
 });
 
