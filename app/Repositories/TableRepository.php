@@ -8,11 +8,9 @@ use Illuminate\Support\Facades\DB;
 
 class TableRepository implements TableRepositoryInterface
 {
-<<<<<<< HEAD
-    protected $table;
-=======
+
     protected $table; //refere-se à entidade ORM (tabela do banco de dados)
->>>>>>> dad99c20418a46e5341affe3d2806e68109005c6
+
 
     public function __construct()
     {
@@ -38,7 +36,7 @@ class TableRepository implements TableRepositoryInterface
     public function getTableByUuid(string $uuid)
     {
         return DB::table($this->table)
-                    ->where('identify', $uuid)
+                    ->where('uuid', $uuid)
                     ->first();
     }
 }

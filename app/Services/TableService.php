@@ -28,7 +28,7 @@ class TableService
 
     public function getTableByUuid(string $uuid)
     {
-        return $this->table->getTableByIdentify($uuid);
+        return $this->table->getTableByUuid($uuid);
     }
 
 
