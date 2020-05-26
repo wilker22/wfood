@@ -43,7 +43,7 @@ Route::group([
     Route::get('/tables/{identify}', 'Api\TableApiController@show');
     Route::get('/tables', 'Api\TableApiController@tablesByTenant');
 
-    Route::get('/products/{flag}', 'Api\ProductApiController@show');
+    Route::get('/products/{identify}', 'Api\ProductApiController@show');
     Route::get('/products', 'Api\ProductApiController@productsByTenant');
 
     Route::post('/client', 'Auth\RegisterController@store');
