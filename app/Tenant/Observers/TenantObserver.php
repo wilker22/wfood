@@ -15,21 +15,15 @@ class TenantObserver
      * @param  Illuminate\Database\Eloquent\Model  $model
      * @return void
      */
-    public function creating(Tenant $tenant)
+    public function creating(Model $model)
     {
-        $tenant->uuid = Str::uuid();
-        $tenant->url = Str::kebab($tenant->name);
+
+        $managerTenant = app(ManagerTenant::class);
+        $identify = $managerTenant->getTenantIdentify();
+
+        if($identify)
+            $model->tenant_id = $identify;
     }
 
-     /**
-      * Handle the tenant "updated" event.
-      *
-      * @param  \App\Models\Tenant  $tenant
-      * @return void
-      */
-      public function updating(Tenant $tenant)
-    {
-        $tenant->url = Str::kebab($tenant->name);
-    }
 
 }
