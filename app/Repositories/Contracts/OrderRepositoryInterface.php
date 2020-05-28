@@ -9,6 +9,7 @@ interface OrderRepositoryInterface
         float $total,
         string $status,
         int $tenant_id,
+        string $comment = '',
         $clienteId = '',
         $tableId = ''
     );
