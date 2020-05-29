@@ -26,7 +26,7 @@ class OrderService
 
     public function createNewOrder(array $order)
     {
-        $productOrder = $this->getProductsByOrder($order['products'] ?? []);
+        $productsOrder = $this->getProductsByOrder($order['products'] ?? []);
 
         $identify = $this->getIdentifyOrder();
         $total = $this->getTotalOrder([]);
@@ -45,6 +45,8 @@ class OrderService
             $clientId,
             $tableId
         );
+
+        $this->orderRepository->registerProductsOrder($order->id, $productsOrder);
 
         return $order;
     }
