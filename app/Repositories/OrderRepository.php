@@ -60,9 +60,6 @@ class OrderRepository implements OrderRepositoryInterface
         $order->products()->attach($orderProducts);
 
 
-
-
-
         // foreach($products as $product){
         //     array_push($orderProducts, [
         //         'order_id'      => $orderId,
@@ -75,5 +72,14 @@ class OrderRepository implements OrderRepositoryInterface
         // DB::table('order_product')->insert($orderProducts);
 
 
+    }
+
+    public function getOrdersByClient(int $idClient)
+    {
+        $orders = $this->entity
+                            ->where('client_id', $idClient)
+                            ->paginate();
+
+        return $orders;
     }
 }
