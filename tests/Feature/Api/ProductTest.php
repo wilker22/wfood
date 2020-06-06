@@ -33,6 +33,7 @@ class ProductTest extends TestCase
     {
         $tenant = factory(Tenant::class)->create();
 
+
         $response = $this->getJson("/api/v1/products?token_company={$tenant->uuid}");
 
         $response->assertStatus(200);
