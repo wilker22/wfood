@@ -10,9 +10,8 @@ $factory->define(Product::class, function (Faker $faker) {
     return [
         'tenant_id' => factory(Tenant::class),
         'title' => $faker->unique()->name,
-        'desciption' => $faker->sentence(),
+        'description' => $faker->sentence,
         'image' => 'pizza.png',
-        'price' => 12.9
-
+        'price' => 12.9,
     ];
 });

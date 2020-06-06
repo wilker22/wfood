@@ -8,13 +8,8 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class TenantTest extends TestCase
+class TableTest extends TestCase
 {
-     /**
-     * Error Get Tables by Tenant
-     *
-     * @return void
-     */
     public function testGetAllTablesTenantError()
     {
         $response = $this->getJson('/api/v1/tables');
@@ -23,11 +18,11 @@ class TenantTest extends TestCase
     }
 
     /**
-     * Get Tables by Tenant
+     * Get Table by Tenant
      *
      * @return void
      */
-    public function testGetAllTablesByTenant()
+    public function testGetAllTableByTenant()
     {
         $tenant = factory(Tenant::class)->create();
 
@@ -65,4 +60,5 @@ class TenantTest extends TestCase
 
         $response->assertStatus(200);
     }
+
 }
