@@ -137,4 +137,23 @@ class TableController extends Controller
 
         return view('admin.pages.tables.index', compact('tables','filters'));
     }
+
+
+     /**
+     * Generate QRCode
+     *
+     * @param  int  $identify
+     * @return \Illuminate\Http\Response
+     */
+    public function qrcode($identify)
+    {
+        if(!$table = $this->repository->where('identify', $identify)->first()){
+            return redirect()->back();
+        };
+
+        $tenant = auth()->user()->tenant;
+        $uri = env('URI_CLIENT') . "/{$tenant->uuid}/{$table->uuid}";
+        return view('admin.pages.tables.qrcode', compact('uri'));
+    }
+
 }
