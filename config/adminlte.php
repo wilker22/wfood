@@ -46,7 +46,7 @@ return [
     */
 
     'logo' => '<b>Wilker</b>Food',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo_img' => 'imgs/logo-vuefood.png',//vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -167,7 +167,7 @@ return [
 
     'use_route_url' => false,
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => 'admin',
 
     'logout_url' => 'logout',
 
@@ -209,6 +209,15 @@ return [
 
     'menu' => [
 
+
+        [
+            'text'        => 'Home',
+            'url'         => 'admin',
+            'icon'        => 'fas fa-tachometer-alt',
+
+          //  'label'       => 4,
+            //'label_color' => 'success',
+        ],
         [
             'text'        => 'Empresas',
             'url'         => 'admin/tenants',
