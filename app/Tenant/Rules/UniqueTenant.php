@@ -44,7 +44,7 @@ class UniqueTenant implements Rule
                                 //dd($register);
 
         if($register && $register->{$this->collumn} == $this->value){
-            return true; //verifica se está editando o nome
+            return true; //verifica se está editando
         }
 
         return is_null($register); //se for NULL o registro é único na tabela
