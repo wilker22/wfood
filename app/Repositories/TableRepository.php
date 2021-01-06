@@ -2,15 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Table;
 use App\Repositories\Contracts\TableRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class TableRepository implements TableRepositoryInterface
 {
-
-    protected $table; //refere-se à entidade ORM (tabela do banco de dados)
-
+    protected $table;
 
     public function __construct()
     {

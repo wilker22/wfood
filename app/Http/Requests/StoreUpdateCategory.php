@@ -24,18 +24,17 @@ class StoreUpdateCategory extends FormRequest
      */
     public function rules()
     {
-
         $id = $this->segment(3);
 
         return [
-                // 'name'          => ['required','min:3','max:255',"unique:categories,name,{$id},id"],
-                'name'          => [
-                    'required',
-                    'min:3',
-                    'max:255',
-                    new UniqueTenant('categories', $id),
-                ],
-                'description'   => ['nullable','min:3','max:10000'],
+            // 'name' => ['required', 'min:3', 'max:255', "unique:categories,name,{$id},id"],
+            'name' => [
+                'required',
+                'min:3',
+                'max:255',
+                new UniqueTenant('categories', $id),
+            ],
+            'description' => ['required', 'min:3', 'max:10000'],
         ];
     }
 }

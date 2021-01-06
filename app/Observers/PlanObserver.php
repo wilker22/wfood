@@ -2,9 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\Plan;
 use Illuminate\Support\Str;
-
+use App\Models\Plan;
 
 class PlanObserver
 {
@@ -29,6 +28,4 @@ class PlanObserver
     {
         $plan->url = Str::kebab($plan->name);
     }
-
-
 }

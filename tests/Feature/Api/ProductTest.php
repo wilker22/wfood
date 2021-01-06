@@ -11,7 +11,7 @@ use Tests\TestCase;
 class ProductTest extends TestCase
 {
     /**
-     * Error get all Products
+     * Error Get All Products
      *
      * @return void
      */
@@ -25,7 +25,7 @@ class ProductTest extends TestCase
     }
 
     /**
-     *  get all products
+     * Get All Products
      *
      * @return void
      */
@@ -33,14 +33,13 @@ class ProductTest extends TestCase
     {
         $tenant = factory(Tenant::class)->create();
 
-
         $response = $this->getJson("/api/v1/products?token_company={$tenant->uuid}");
 
         $response->assertStatus(200);
     }
 
     /**
-     *  Product Not Found (404)
+     * Produt Not Found (404)
      *
      * @return void
      */
@@ -55,7 +54,7 @@ class ProductTest extends TestCase
     }
 
     /**
-     *  get Product by Identify
+     * Get Product by Identify
      *
      * @return void
      */

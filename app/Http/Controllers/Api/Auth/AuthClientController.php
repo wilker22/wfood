@@ -15,20 +15,18 @@ class AuthClientController extends Controller
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
-            'device_name' => 'required'
+            'device_name' => 'required',
         ]);
 
         $client = Client::where('email', $request->email)->first();
 
-        if(!$client || !Hash::check($request->password, $client->password)){
-            return response()->json(['message', trans('messages.invalid_credentials')], 404);
+        if (!$client || !Hash::check($request->password, $client->password)) {
+            return response()->json(['message' => trans('messages.invalid_credentials')], 404);
         }
 
         $token = $client->createToken($request->device_name)->plainTextToken;
 
-        return response()->json(['token', $token]);
-
-
+        return response()->json(['token' => $token]);
     }
 
     public function me(Request $request)
@@ -42,7 +40,7 @@ class AuthClientController extends Controller
     {
         $client = $request->user();
 
-        //revoke all tokens client...
+        // Revoke all tokens client...
         $client->tokens()->delete();
 
         return response()->json([], 204);

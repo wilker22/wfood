@@ -2,6 +2,7 @@
 
 namespace App\Tenant\Events;
 
+use App\Models\Tenant;
 use App\Models\User;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
@@ -15,8 +16,8 @@ class TenantCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-
     private $user;
+
     /**
      * Create a new event instance.
      *
@@ -28,22 +29,20 @@ class TenantCreated
     }
 
     /**
-     * Retorna o usuário
+     * Return user created
      */
-    public function user()
+    public function user(): User
     {
         return $this->user;
     }
 
     /**
-     * retorna o tenant do user
-     *
-     * */
-    public function tenant()
+     * Get tenant
+     */
+    public function tenant(): Tenant
     {
         return $this->user->tenant;
     }
-
 
     /**
      * Get the channels the event should broadcast on.

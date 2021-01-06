@@ -27,15 +27,14 @@ class StoreUpdateTable extends FormRequest
         $id = $this->segment(3);
 
         return [
-                'identify'      => [
-                    //'required','min:3','max:255',"unique:tables,identify,{$id},id"
-                    'required',
-                    'min:3',
-                    'max:255',
-                    //"unique:tables,identify,{$id},id"
-                    new UniqueTenant('tables', $id),
-                ],
-                'description'   => ['nullable','min:3','max:1000'],
+            'identify' => [
+                'required',
+                'min:3',
+                'max:255',
+                //"unique:tables,identify,{$id},id"
+                new UniqueTenant('tables', $id),
+            ],
+            'description' => ['required', 'min:3', 'max:1000'],
         ];
     }
 }

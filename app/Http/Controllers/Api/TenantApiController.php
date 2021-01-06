@@ -19,14 +19,16 @@ class TenantApiController extends Controller
     public function index(Request $request)
     {
         $per_page = (int) $request->get('per_page', 15);
+
         $tenants = $this->tenantService->getAllTenants($per_page);
+
         return TenantResource::collection($tenants);
     }
 
     public function show($uuid)
     {
-        if(!$tenant = $this->tenantService->getTenantByUuid($uuid)){
-            return response()->json(['message' => 'Registro não Encontrado!'], 404);
+        if (!$tenant = $this->tenantService->getTenantByUuid($uuid)) {
+            return response()->json(['message' => 'Not Found'], 404);
         }
 
         return new TenantResource($tenant);

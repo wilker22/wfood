@@ -20,8 +20,7 @@ class TenantScope implements Scope
     {
         $identify = app(ManagerTenant::class)->getTenantIdentify();
 
-        if($identify)
+        if ($identify)
             $builder->where('tenant_id', $identify);
     }
-
 }

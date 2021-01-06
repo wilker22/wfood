@@ -20,11 +20,10 @@ class TenantService
         return $this->repository->getAllTenants($per_page);
     }
 
-    public function getTenantByUuid($uuid)
+    public function getTenantByUuid(string $uuid)
     {
         return $this->repository->getTenantByUuid($uuid);
     }
-
 
     public function make(Plan $plan, array $data)
     {
@@ -44,7 +43,7 @@ class TenantService
 
         return $this->plan->tenants()->create([
             'cnpj' => $data['cnpj'],
-            'name' => $data['name'],
+            'name' => $data['empresa'],
             'email' => $data['email'],
 
             'subscription' => now(),
@@ -54,16 +53,12 @@ class TenantService
 
     public function storeUser($tenant)
     {
-        $data = $this->data;
-
         $user = $tenant->users()->create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'name' => $this->data['name'],
+            'email' => $this->data['email'],
+            'password' => bcrypt($this->data['password']),
         ]);
 
         return $user;
     }
-
-
 }

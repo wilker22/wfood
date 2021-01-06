@@ -10,6 +10,11 @@ use Tests\TestCase;
 
 class TableTest extends TestCase
 {
+    /**
+     * Error Get Tables by Tenant
+     *
+     * @return void
+     */
     public function testGetAllTablesTenantError()
     {
         $response = $this->getJson('/api/v1/tables');
@@ -18,11 +23,11 @@ class TableTest extends TestCase
     }
 
     /**
-     * Get Table by Tenant
+     * Get Tables by Tenant
      *
      * @return void
      */
-    public function testGetAllTableByTenant()
+    public function testGetAllTablesByTenant()
     {
         $tenant = factory(Tenant::class)->create();
 
@@ -60,5 +65,4 @@ class TableTest extends TestCase
 
         $response->assertStatus(200);
     }
-
 }

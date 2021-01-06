@@ -2,14 +2,14 @@
 
 namespace Tests\Feature\Api;
 
+use Illuminate\Support\Str;
 use App\Models\Client;
 use App\Models\Order;
-use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class EvaluationTest extends TestCase
+class Evaluationtest extends TestCase
 {
     /**
      * Test Error Create New Evaluation
@@ -20,7 +20,7 @@ class EvaluationTest extends TestCase
     {
         $order = 'fake_value';
 
-        $response = $this->postJson("auth/v1/orders/{$order}/evaluations");
+        $response = $this->postJson("/auth/v1/orders/{$order}/evaluations");
 
         $response->assertStatus(401);
     }
@@ -28,7 +28,7 @@ class EvaluationTest extends TestCase
 
     /**
      * Test Create New Evaluation
-      *
+     *
      * @return void
      */
     public function testCreateNewEvaluation()
@@ -44,11 +44,11 @@ class EvaluationTest extends TestCase
         ];
 
         $headers = [
-            'Authorization' => "Bearer {$token}"
+            'Authorization' => "Bearer {$token}",
         ];
 
         $response = $this->postJson(
-            "auth/v1/orders/{$order}/evaluations",
+            "/auth/v1/orders/{$order}/evaluations",
             $payload,
             $headers
         );

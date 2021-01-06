@@ -3,10 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Evaluation;
-use App\Models\Order;
 use App\Repositories\Contracts\EvaluationRepositoryInterface;
-use App\Repositories\Contracts\OrderRepositoryInterface;
-use Illuminate\Support\Facades\DB;
 
 class EvaluationRepository implements EvaluationRepositoryInterface
 {
@@ -23,17 +20,17 @@ class EvaluationRepository implements EvaluationRepositoryInterface
             'client_id' => $idClient,
             'order_id' => $idOrder,
             'stars' => $evaluation['stars'],
-            'comment' => isset($evaluation['comment']) ? $evaluation['comment'] : ''
+            'comment' => isset($evaluation['comment']) ? $evaluation['comment'] : '',
         ];
 
         return $this->entity->create($data);
-
     }
 
     public function getEvaluationsByOrder(int $idOrder)
     {
         return $this->entity->where('order_id', $idOrder)->get();
     }
+
 
     public function getEvaluationsByClient(int $idClient)
     {
@@ -48,10 +45,8 @@ class EvaluationRepository implements EvaluationRepositoryInterface
     public function getEvaluationsByClientIdByOrderId(int $idOrder, int $idClient)
     {
         return $this->entity
-                        ->where('client_id', $idClient)
-                        ->where('order_id', $idOrder)
-                        ->first();
+                    ->where('client_id', $idClient)
+                    ->where('order_id', $idOrder)
+                    ->first();
     }
-
-
 }

@@ -3,14 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Profile extends Model
 {
     protected $fillable = ['name', 'description'];
 
+
     /**
-     * get permissions
+     * Get Permissions
      */
     public function permissions()
     {
@@ -18,7 +18,7 @@ class Profile extends Model
     }
 
     /**
-     * get plans
+     * Get Plans
      */
     public function plans()
     {
@@ -26,18 +26,17 @@ class Profile extends Model
     }
 
     /**
-     * permissions não linkadas ao nosso perfil
+     * Permission not linked with this profile
      */
     public function permissionsAvailable($filter = null)
     {
-        $permissions = Permission::whereNotIn('permissions.id', function($query){
+        $permissions = Permission::whereNotIn('permissions.id', function($query) {
             $query->select('permission_profile.permission_id');
             $query->from('permission_profile');
             $query->whereRaw("permission_profile.profile_id={$this->id}");
-
         })
-        ->where(function($queryFilter) use ($filter){
-            if($filter)
+        ->where(function ($queryFilter) use ($filter) {
+            if ($filter)
                 $queryFilter->where('permissions.name', 'LIKE', "%{$filter}%");
         })
         ->paginate();

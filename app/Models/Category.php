@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use App\Tenant\Observers\TenantObserver;
 use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,14 +11,8 @@ class Category extends Model
 
     protected $fillable = ['name', 'url', 'description'];
 
-
-
     public function products()
     {
-       return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class);
     }
-
-
 }
-
-

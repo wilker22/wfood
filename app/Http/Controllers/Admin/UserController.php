@@ -62,6 +62,7 @@ class UserController extends Controller
         return redirect()->route('users.index');
     }
 
+
     /**
      * Display the specified resource.
      *

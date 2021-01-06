@@ -11,7 +11,7 @@ class ManagerTenant
         return auth()->check() ? auth()->user()->tenant_id : '';
     }
 
-    public function getTenant(): Tenant
+    public function getTenant()
     {
         return auth()->check() ? auth()->user()->tenant : '';
     }
@@ -20,5 +20,4 @@ class ManagerTenant
     {
         return in_array(auth()->user()->email, config('tenant.admins'));
     }
-
 }

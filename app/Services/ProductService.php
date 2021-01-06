@@ -12,21 +12,21 @@ class ProductService
     public function __construct(
         ProductRepositoryInterface $productRepository,
         TenantRepositoryInterface $tenantRepository
-    )
-    {
+    ) {
         $this->productRepository = $productRepository;
-        $this->tenantService = $tenantRepository;
+        $this->tenantRepository = $tenantRepository;
     }
 
     public function getProductsByTenantUuid(string $uuid, array $categories)
     {
-        $tenant = $this->tenantRepository->getProductsByTenantUuid($uuid);
-        return $this->productRepository->getProductsByTenantId($tenant->id, $categories);
+        $tenant = $this->tenantRepository->getTenantByUuid($uuid);
+
+        return $this->productRepository->getproductsByTenantId($tenant->id, $categories);
     }
 
     public function getProductByUuid(string $uuid)
     {
         return $this->productRepository->getProductByUuid($uuid);
-
     }
+
 }

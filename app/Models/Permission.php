@@ -9,9 +9,8 @@ class Permission extends Model
     protected $fillable = ['name', 'description'];
 
 
-
     /**
-     * get profiles
+     * Get Profiles
      */
     public function profiles()
     {
@@ -19,11 +18,10 @@ class Permission extends Model
     }
 
     /**
-     * relacionamento com a tabela Roles
+     * Get Roles
      */
-
-     public function roles()
-     {
-         return $this->belongsToMany(Role::class);
-     }
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
 }

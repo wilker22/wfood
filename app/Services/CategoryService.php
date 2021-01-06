@@ -5,10 +5,8 @@ namespace App\Services;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 
-
 class CategoryService
 {
-
     protected $categoryRepository, $tenantRepository;
 
     public function __construct(
@@ -30,8 +28,4 @@ class CategoryService
     {
         return $this->categoryRepository->getCategoryByUuid($uuid);
     }
-
-
-
-
 }

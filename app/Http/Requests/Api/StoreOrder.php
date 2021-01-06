@@ -30,11 +30,11 @@ class StoreOrder extends FormRequest
             ],
             'table' => [
                 'nullable',
-                'exists:tables,uuid'
+                'exists:tables,uuid',
             ],
             'comment' => [
                 'nullable',
-                'max:1000'
+                'max:1000',
             ],
             'products' => ['required'],
             'products.*.identify' => ['required', 'exists:products,uuid'],

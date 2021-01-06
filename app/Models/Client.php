@@ -2,18 +2,21 @@
 
 namespace App\Models;
 
-//use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
 class Client extends Authenticatable
 {
-
     use HasApiTokens;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'tenant_id',
     ];
 
 
@@ -21,6 +24,7 @@ class Client extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
 
     public function evaluations()
     {

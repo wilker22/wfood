@@ -5,11 +5,9 @@ namespace App\Services;
 use App\Repositories\Contracts\TableRepositoryInterface;
 use App\Repositories\Contracts\TenantRepositoryInterface;
 
-
 class TableService
 {
-
-    protected $tableRepository, $tenantRepository;
+    protected $table, $tenantRepository;
 
     public function __construct(
         TableRepositoryInterface $table,
@@ -30,8 +28,4 @@ class TableService
     {
         return $this->table->getTableByUuid($uuid);
     }
-
-
-
-
 }

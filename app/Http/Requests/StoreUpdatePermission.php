@@ -23,10 +23,10 @@ class StoreUpdatePermission extends FormRequest
      */
     public function rules()
     {
-        $id = $this->segment(3); //recuperar o id do profile para comparar na validação da coluna name
+        $id = $this->segment(3);
 
         return [
-            'name' => "required|min:3|max:255|unique:profiles,name,{$id},id", //caso seja editado com o mesmo nome ele não validar como UNIQUE
+            'name' => "required|min:3|max:255|unique:profiles,name,{$id},id",
             'description' => 'nullable|min:3|max:255',
         ];
     }

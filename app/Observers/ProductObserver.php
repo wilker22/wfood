@@ -2,11 +2,17 @@
 
 namespace App\Observers;
 
-use App\Models\Product;
 use Illuminate\Support\Str;
+use App\Models\Product;
 
 class ProductObserver
 {
+    /**
+     * Handle the product "creating" event.
+     *
+     * @param  \App\Models\Product  $product
+     * @return void
+     */
     public function creating(Product $product)
     {
         $product->flag = Str::kebab($product->title);
@@ -14,14 +20,13 @@ class ProductObserver
     }
 
     /**
-     * Handle the plan "updating" event.
+     * Handle the product "updated" event.
      *
-     * @param  \App\Models\Plan  $plan
+     * @param  \App\Models\Product  $product
      * @return void
      */
     public function updating(Product $product)
     {
         $product->flag = Str::kebab($product->title);
     }
-
 }

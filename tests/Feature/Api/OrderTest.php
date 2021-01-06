@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api;
 
+use Illuminate\Support\Str;
 use App\Models\Client;
 use App\Models\Order;
 use App\Models\Product;
@@ -10,8 +11,6 @@ use App\Models\Tenant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Illuminate\Support\Str;
-
 
 class OrderTest extends TestCase
 {
@@ -28,13 +27,12 @@ class OrderTest extends TestCase
 
         $response->assertStatus(422)
                     ->assertJsonPath('errors.token_company', [
-                        trans('validation.required', ['attribute' => 'token_company'])
+                        trans('validation.required', ['attribute' => 'token company'])
                     ])
                     ->assertJsonPath('errors.products', [
                         trans('validation.required', ['attribute' => 'products'])
                     ]);
     }
-
 
     /**
      * Create New Order
@@ -47,13 +45,13 @@ class OrderTest extends TestCase
 
         $payload = [
             'token_company' => $tenant->uuid,
-            'products' => []
+            'products' => [],
         ];
 
         $products = factory(Product::class, 10)->create();
-        foreach($products as $product){
+        foreach ($products as $product) {
             array_push($payload['products'], [
-                'identity' => $product->uuid,
+                'identify' => $product->uuid,
                 'qty' => 2,
             ]);
         }
@@ -63,9 +61,8 @@ class OrderTest extends TestCase
         $response->assertStatus(201);
     }
 
-
     /**
-     * Total Order
+     * Test Total Order
      *
      * @return void
      */
@@ -75,26 +72,26 @@ class OrderTest extends TestCase
 
         $payload = [
             'token_company' => $tenant->uuid,
-            'products' => []
+            'products' => [],
         ];
 
         $products = factory(Product::class, 2)->create();
-        foreach($products as $product){
+        foreach ($products as $product) {
             array_push($payload['products'], [
-                'identity' => $product->uuid,
-                'qty' => 2,
+                'identify' => $product->uuid,
+                'qty' => 1,
             ]);
         }
 
         $response = $this->postJson('/api/v1/orders', $payload);
 
         $response->assertStatus(201)
-                        ->assertJsonPath('data.total', 25.8);
+                    ->assertJsonPath('data.total', 25.8);
     }
 
 
     /**
-     * Order Not Found
+     * Test Order Not Found
      *
      * @return void
      */
@@ -106,8 +103,6 @@ class OrderTest extends TestCase
 
         $response->assertStatus(404);
     }
-
-
 
     /**
      * Test Get Order
@@ -124,7 +119,7 @@ class OrderTest extends TestCase
     }
 
     /**
-     * Test New Order Authenticated
+     * Test Create New Total Authenticated
      *
      * @return void
      */
@@ -137,14 +132,14 @@ class OrderTest extends TestCase
 
         $payload = [
             'token_company' => $tenant->uuid,
-            'products' => []
+            'products' => [],
         ];
 
         $products = factory(Product::class, 2)->create();
-        foreach($products as $product){
+        foreach ($products as $product) {
             array_push($payload['products'], [
-                'identity' => $product->uuid,
-                'qty' => 2,
+                'identify' => $product->uuid,
+                'qty' => 1,
             ]);
         }
 
@@ -153,12 +148,10 @@ class OrderTest extends TestCase
         ]);
 
         $response->assertStatus(201);
-
     }
 
-
     /**
-     * Test New Order with table
+     * Test Create New Total With Table
      *
      * @return void
      */
@@ -170,26 +163,25 @@ class OrderTest extends TestCase
         $payload = [
             'token_company' => $tenant->uuid,
             'table' => $table->uuid,
-            'products' => []
+            'products' => [],
         ];
 
         $products = factory(Product::class, 2)->create();
-        foreach($products as $product){
+        foreach ($products as $product) {
             array_push($payload['products'], [
-                'identity' => $product->uuid,
-                'qty' => 2,
+                'identify' => $product->uuid,
+                'qty' => 1,
             ]);
         }
 
         $response = $this->postJson('/api/v1/orders', $payload);
 
         $response->assertStatus(201);
-
     }
 
 
-     /**
-     * Test Get My  Orders
+    /**
+     * Test Get My Orders
      *
      * @return void
      */
@@ -198,14 +190,13 @@ class OrderTest extends TestCase
         $client = factory(Client::class)->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
 
-        factory(Order::class, 20)->create(['client_id' => $client->id]);
+        factory(Order::class, 2)->create(['client_id' => $client->id]);
 
         $response = $this->getJson('/api/auth/v1/my-orders', [
             'Authorization' => "Bearer {$token}"
         ]);
 
         $response->assertStatus(200)
-                        ->assertJson(20, 'data');
-
+                    ->assertJsonCount(2, 'data');
     }
 }

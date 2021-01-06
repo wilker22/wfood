@@ -14,12 +14,11 @@ class EvaluationResource extends JsonResource
      */
     public function toArray($request)
     {
-        return  [
+        return [
             'stars' => $this->stars,
             'comment' => $this->comment,
             'client' => new ClientResource($this->client),
-            //'order' => new OrderResource($this->order),
+            // 'order' => new OrderResource($this->order),
         ];
-
     }
 }

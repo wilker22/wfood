@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests\Api;
 
-use App\Models\Order;
 use App\Repositories\Contracts\OrderRepositoryInterface;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -15,15 +14,15 @@ class StoreEvaluationOrder extends FormRequest
      */
     public function authorize()
     {
-        if(!$client = auth()->user()){
+        if (!$client = auth()->user()) {
             return false;
         }
 
-        if(!$order = app(OrderRepositoryInterface::class)->getOrderByIdentify($this->identify)){
+        if (!$order = app(OrderRepositoryInterface::class)->getOrderByIdentify($this->identifyOrder)) {
             return false;
         }
 
-        return $client->id == $order->client->id;
+        return $client->id == $order->client_id;
     }
 
     /**
@@ -35,7 +34,7 @@ class StoreEvaluationOrder extends FormRequest
     {
         return [
             'stars' => ['required', 'integer', 'min:1', 'max:5'],
-            'comment' => ['nullable', 'min:3', 'max:1000']
+            'comment' => ['nullable', 'min:3', 'max:1000'],
         ];
     }
 }

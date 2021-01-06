@@ -3,15 +3,27 @@
 namespace Tests\Feature\Api;
 
 use App\Models\Client;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
-use Illuminate\Support\Str;
 
 class AuthTest extends TestCase
 {
     /**
-     * Test  Auth with user fake
+     * Test Validation Auth
+     *
+     * @return void
+     */
+    public function testValidationAuth()
+    {
+        $response = $this->postJson('/api/auth/token');
+
+        $response->assertStatus(404);
+    }
+
+    /**
+     * Test Auth with client fake
      *
      * @return void
      */
@@ -31,14 +43,15 @@ class AuthTest extends TestCase
                     ]);
     }
 
-        /**
-     * Test  Auth success
+    /**
+     * Test Auth Success
      *
      * @return void
      */
     public function testAuthSuccess()
     {
         $client = factory(Client::class)->create();
+
         $payload = [
             'email' => $client->email,
             'password' => 'password',
@@ -46,28 +59,25 @@ class AuthTest extends TestCase
         ];
 
         $response = $this->postJson('/api/auth/token', $payload);
-        $response->dump();
-        $response->assertStatus(200)->assertJsonStructure(['token']);
 
+        $response->assertStatus(200)
+                    ->assertJsonStructure(['token']);
     }
 
-     /**
-     * Error get Me
+    /**
+     * Error Get Me
      *
      * @return void
      */
     public function testErrorGetMe()
     {
-
         $response = $this->getJson('/api/auth/me');
 
         $response->assertStatus(401);
-
     }
 
-
     /**
-     * Error get Me
+     * Get Me
      *
      * @return void
      */
@@ -75,20 +85,19 @@ class AuthTest extends TestCase
     {
         $client = factory(Client::class)->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
+
         $response = $this->getJson('/api/auth/me', [
             'Authorization' => "Bearer {$token}",
         ]);
 
         $response->assertStatus(200)
-                        ->assertExactJson([
-                            'data' => [
-                                'name' => $client->name,
-                                'email' => $client->email
-                            ]
-                        ]);
-
+                    ->assertExactJson([
+                        'data' => [
+                            'name' => $client->name,
+                            'email' => $client->email,
+                        ]
+                    ]);
     }
-
 
     /**
      * Logout
@@ -99,11 +108,11 @@ class AuthTest extends TestCase
     {
         $client = factory(Client::class)->create();
         $token = $client->createToken(Str::random(10))->plainTextToken;
+
         $response = $this->postJson('/api/auth/logout', [], [
             'Authorization' => "Bearer {$token}",
         ]);
 
         $response->assertStatus(204);
-
     }
 }

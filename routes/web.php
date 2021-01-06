@@ -1,23 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
 
 Route::prefix('admin')
-                ->namespace('Admin')
-                ->middleware('auth')
-                ->group(function(){
-
+        ->namespace('Admin')
+        ->middleware('auth')
+        ->group(function() {
 
     /**
      * Role x User
@@ -35,30 +22,26 @@ Route::prefix('admin')
     Route::post('roles/{id}/permissions', 'ACL\PermissionRoleController@attachPermissionsRole')->name('roles.permissions.attach');
     Route::any('roles/{id}/permissions/create', 'ACL\PermissionRoleController@permissionsAvailable')->name('roles.permissions.available');
     Route::get('roles/{id}/permissions', 'ACL\PermissionRoleController@permissions')->name('roles.permissions');
-    Route::get('permissions/{id}/roles', 'ACL\PermissionRoleController@roles')->name('permissions.roles');
-
-
+    Route::get('permissions/{id}/role', 'ACL\PermissionRoleController@roles')->name('permissions.roles');
 
     /**
-    * Routes Roles
-    */
+     * Routes Profiles
+     */
     Route::any('roles/search', 'ACL\RoleController@search')->name('roles.search');
     Route::resource('roles', 'ACL\RoleController');
 
-
     /**
-    * Routes Tenants
-    */
+     * Routes Tenants
+     */
     Route::any('tenants/search', 'TenantController@search')->name('tenants.search');
     Route::resource('tenants', 'TenantController');
 
-   /**
-    * Routes Tables
-    */
+    /**
+     * Routes Tables
+     */
     Route::get('tables/qrcode/{identify}', 'TableController@qrcode')->name('tables.qrcode');
     Route::any('tables/search', 'TableController@search')->name('tables.search');
     Route::resource('tables', 'TableController');
-
 
     /**
      * Product x Category
@@ -69,29 +52,27 @@ Route::prefix('admin')
     Route::get('products/{id}/categories', 'CategoryProductController@categories')->name('products.categories');
     Route::get('categories/{id}/products', 'CategoryProductController@products')->name('categories.products');
 
-
     /**
-    * Routes Products
-    */
+     * Routes Products
+     */
     Route::any('products/search', 'ProductController@search')->name('products.search');
     Route::resource('products', 'ProductController');
 
 
     /**
-    * Routes Categories
-    */
+     * Routes Categories
+     */
     Route::any('categories/search', 'CategoryController@search')->name('categories.search');
     Route::resource('categories', 'CategoryController');
 
 
     /**
-    * Routes Users
-    */
+     * Routes Users
+     */
     Route::any('users/search', 'UserController@search')->name('users.search');
     Route::resource('users', 'UserController');
 
-
-     /**
+    /**
      * Plan x Profile
      */
     Route::get('plans/{id}/profile/{idProfile}/detach', 'ACL\PlanProfileController@detachProfilePlan')->name('plans.profile.detach');
@@ -100,10 +81,7 @@ Route::prefix('admin')
     Route::get('plans/{id}/profiles', 'ACL\PlanProfileController@profiles')->name('plans.profiles');
     Route::get('profiles/{id}/plans', 'ACL\PlanProfileController@plans')->name('profiles.plans');
 
-
-
-
-     /**
+    /**
      * Permission x Profile
      */
     Route::get('profiles/{id}/permission/{idPermission}/detach', 'ACL\PermissionProfileController@detachPermissionProfile')->name('profiles.permission.detach');
@@ -113,20 +91,18 @@ Route::prefix('admin')
     Route::get('permissions/{id}/profile', 'ACL\PermissionProfileController@profiles')->name('permissions.profiles');
 
     /**
-    * Routes Permissions
-    */
+     * Routes Permissions
+     */
     Route::any('permissions/search', 'ACL\PermissionController@search')->name('permissions.search');
     Route::resource('permissions', 'ACL\PermissionController');
 
-   /**
-    * Routes Profiles
-    */
+    /**
+     * Routes Profiles
+     */
     Route::any('profiles/search', 'ACL\ProfileController@search')->name('profiles.search');
     Route::resource('profiles', 'ACL\ProfileController');
 
-
-
-   /**
+    /**
      * Routes Details Plans
      */
     Route::delete('plans/{url}/details/{idDetail}', 'DetailPlanController@destroy')->name('details.plan.destroy');
@@ -138,10 +114,9 @@ Route::prefix('admin')
     Route::get('plans/{url}/details', 'DetailPlanController@index')->name('details.plan.index');
 
 
-
-   /**
-    * Routes Plans
-    */
+    /**
+     * Routes Plans
+     */
     Route::get('plans/create', 'PlanController@create')->name('plans.create');
     Route::put('plans/{url}', 'PlanController@update')->name('plans.update');
     Route::get('plans/{url}/edit', 'PlanController@edit')->name('plans.edit');
@@ -151,23 +126,20 @@ Route::prefix('admin')
     Route::post('plans', 'PlanController@store')->name('plans.store');
     Route::get('plans', 'PlanController@index')->name('plans.index');
 
-
     /**
      * Home Dashboard
      */
     Route::get('/', 'DashboardController@home')->name('admin.index');
 });
 
+
 /**
- * Site routes
+ * Site
  */
 Route::get('/plan/{url}', 'Site\SiteController@plan')->name('plan.subscription');
 Route::get('/', 'Site\SiteController@index')->name('site.home');
 
 /**
- * Auth routes
+ * Auth Routes
  */
-//Auth::routes(['register' => false]);
 Auth::routes();
-
-//Route::get('/home', 'HomeController@index')->name('home');

@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Repositories\Contracts\ClientRepositoryInterface;
+use App\Repositories\Contracts\ProductRepositoryInterface;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class ClientService
 {

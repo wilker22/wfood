@@ -10,6 +10,11 @@ use Tests\TestCase;
 
 class CategoryTest extends TestCase
 {
+    /**
+     * Error Get Categories by Tenant
+     *
+     * @return void
+     */
     public function testGetAllCategoriesTenantError()
     {
         $response = $this->getJson('/api/v1/categories');
@@ -60,6 +65,4 @@ class CategoryTest extends TestCase
 
         $response->assertStatus(200);
     }
-
-
 }

@@ -4,20 +4,18 @@ namespace App\Services;
 
 use App\Repositories\Contracts\EvaluationRepositoryInterface;
 use App\Repositories\Contracts\OrderRepositoryInterface;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 
 class EvaluationService
 {
-
     protected $evaluationRepository, $orderRepository;
 
     public function __construct(
         EvaluationRepositoryInterface $evaluation,
-        OrderRepositoryInterface $order
-    )
-    {
+        OrderRepositoryInterface $orderRepository
+    ) {
         $this->evaluationRepository = $evaluation;
-        $this->orderRepository = $order;
+        $this->orderRepository = $orderRepository;
     }
 
     public function createNewEvaluation(string $identifyOrder, array $evaluation)
@@ -28,12 +26,8 @@ class EvaluationService
         return $this->evaluationRepository->newEvaluationOrder($order->id, $clientId, $evaluation);
     }
 
-    public function getIdClient()
+    private function getIdClient()
     {
         return auth()->user()->id;
     }
-
-
-
-
 }

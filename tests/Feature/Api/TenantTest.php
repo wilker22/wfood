@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Api;
 
-use App\Models\Table;
 use App\Models\Tenant;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -10,58 +9,45 @@ use Tests\TestCase;
 
 class TenantTest extends TestCase
 {
-     /**
-     * Error Get Tables by Tenant
+    /**
+     * Test Get All Tenants
      *
      * @return void
      */
-    public function testGetAllTablesTenantError()
+    public function testGetAllTenants()
     {
-        $response = $this->getJson('/api/v1/tables');
+        factory(Tenant::class, 10)->create();
 
-        $response->assertStatus(422);
+        $response = $this->getJson('/api/v1/tenants');
+
+        $response->assertStatus(200)
+                    ->assertJsonCount(10, 'data');
     }
 
     /**
-     * Get Tables by Tenant
+     * Test Get Error Single Tenant
      *
      * @return void
      */
-    public function testGetAllTablesByTenant()
+    public function testErrorGetTenant()
     {
-        $tenant = factory(Tenant::class)->create();
+        $tenant = 'fake_value';
 
-        $response = $this->getJson("/api/v1/tables?token_company={$tenant->uuid}");
-
-        $response->assertStatus(200);
-    }
-
-    /**
-     * Error Get Table by Tenant
-     *
-     * @return void
-     */
-    public function testErrorGetTableByTenant()
-    {
-        $table = 'fake_value';
-        $tenant = factory(Tenant::class)->create();
-
-        $response = $this->getJson("/api/v1/tables/{$table}?token_company={$tenant->uuid}");
+        $response = $this->getJson("/api/v1/tenants/{$tenant}");
 
         $response->assertStatus(404);
     }
 
     /**
-     * Get Table by Tenant
+     * Test Get Error Single Tenant
      *
      * @return void
      */
-    public function testGetTableByTenant()
+    public function testGetTenantByIdentify()
     {
-        $table = factory(Table::class)->create();
         $tenant = factory(Tenant::class)->create();
 
-        $response = $this->getJson("/api/v1/tables/{$table->uuid}?token_company={$tenant->uuid}");
+        $response = $this->getJson("/api/v1/tenants/{$tenant->uuid}");
 
         $response->assertStatus(200);
     }

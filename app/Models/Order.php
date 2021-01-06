@@ -4,19 +4,21 @@ namespace App\Models;
 
 use App\Tenant\Traits\TenantTrait;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Order extends Model
 {
     use TenantTrait;
 
-    protected $fillable = [
-        'identify', 'client_id', 'table_id', 'total', 'status', 'comment' , 'tenant_id'
-    ];
+    protected $fillable = ['tenant_id', 'identify', 'client_id', 'table_id', 'total', 'status', 'comment'];
 
     public function tenant()
     {
         return $this->belongsTo(Tenant::class);
+    }
+
+    public function client()
+    {
+        return $this->belongsTo(Client::class);
     }
 
     public function table()

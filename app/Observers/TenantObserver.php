@@ -2,9 +2,8 @@
 
 namespace App\Observers;
 
-use App\Models\Tenant;
 use Illuminate\Support\Str;
-
+use App\Models\Tenant;
 
 class TenantObserver
 {
@@ -21,15 +20,13 @@ class TenantObserver
     }
 
     /**
-     * Handle the tenant "updated" event.
+     * Handle the tenant "updating" event.
      *
      * @param  \App\Models\Tenant  $tenant
      * @return void
      */
     public function updating(Tenant $tenant)
     {
-        $this->url = Str::kebab($tenant->name);
+        $tenant->url = Str::kebab($tenant->name);
     }
-
-
 }

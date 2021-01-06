@@ -2,13 +2,12 @@
 
 namespace App\Repositories;
 
-use App\Models\Category;
 use App\Repositories\Contracts\CategoryRepositoryInterface;
 use Illuminate\Support\Facades\DB;
 
 class CategoryRepository implements CategoryRepositoryInterface
 {
-    protected $table; //refre-se à entidade ORM e não às mesas
+    protected $table;
 
     public function __construct()
     {

@@ -10,7 +10,6 @@ use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
-
     protected $clientService;
 
     public function __construct(ClientService $clientService)
@@ -23,11 +22,6 @@ class RegisterController extends Controller
     {
         $client = $this->clientService->createNewClient($request->all());
 
-        //desta forma qdo retorna collection
-            //return ClientResource::collection($client);
-
-        //assim qdo retorna um único registro
-        return new ClientResource($request->all());
-
+        return new ClientResource($client);
     }
 }

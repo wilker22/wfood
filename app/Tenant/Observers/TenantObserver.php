@@ -2,28 +2,23 @@
 
 namespace App\Tenant\Observers;
 
-use App\Models\Tenant;
 use App\Tenant\ManagerTenant;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 class TenantObserver
 {
     /**
-     * Handle the tenant "creating" event.
+     * Handle the plan "creating" event.
      *
-     * @param  Illuminate\Database\Eloquent\Model  $model
+     * @param \Illuminate\Database\Eloquent\Model $model
      * @return void
      */
     public function creating(Model $model)
     {
-
         $managerTenant = app(ManagerTenant::class);
         $identify = $managerTenant->getTenantIdentify();
 
-        if($identify)
+        if ($identify)
             $model->tenant_id = $identify;
     }
-
-
 }

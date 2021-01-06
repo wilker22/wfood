@@ -19,15 +19,18 @@ class ProductApiController extends Controller
 
     public function productsByTenant(TenantFormRequest $request)
     {
-        $products = $this->productService->getProductsByTenantUuid($request->token_company);
+        $products = $this->productService->getProductsByTenantUuid(
+            $request->token_company,
+            $request->get('categories', [])
+        );
 
         return ProductResource::collection($products);
     }
 
     public function show(TenantFormRequest $request, $identify)
     {
-        if(!$product = $this->productService->getProductByUuid($identify)){
-            return response()->json(['message' => 'Product not found', 404]);
+        if (!$product = $this->productService->getProductByUuid($identify)) {
+            return response()->json(['message' => 'Product Not Found'], 404);
         }
 
         return new ProductResource($product);
